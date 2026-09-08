@@ -1,0 +1,98 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root { color-scheme: dark; }
+html { font-family: 'Cairo', 'Inter', system-ui, sans-serif; background: #0a0e1a; scroll-behavior: smooth; }
+html[dir="ltr"] { font-family: 'Inter', system-ui, sans-serif; }
+html[dir="rtl"] { font-family: 'Cairo', system-ui, sans-serif; }
+
+body {
+  background:
+    radial-gradient(ellipse at top, rgba(45, 212, 191, 0.08), transparent 50%),
+    radial-gradient(ellipse at bottom, rgba(13, 148, 136, 0.05), transparent 50%),
+    #0a0e1a;
+  min-height: 100vh; color: #f5f5f5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Safe area for mobile notches */
+.safe-top { padding-top: env(safe-area-inset-top); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+@layer components {
+  .glass-card { @apply bg-glass-dark backdrop-blur-xl border border-white/10 rounded-2xl shadow-glass; }
+  .glass-card-hover { @apply transition-all duration-300 hover:border-teal-400/40 hover:shadow-teal hover:-translate-y-1; }
+  .btn-teal { @apply bg-teal-gradient text-royal-900 font-bold rounded-xl px-4 sm:px-6 py-2.5 sm:py-3 shadow-teal transition-all duration-300 hover:scale-105 active:scale-95 text-sm sm:text-base; }
+  .btn-glass { @apply bg-white/5 backdrop-blur-md border border-white/10 text-white rounded-xl px-4 sm:px-6 py-2.5 sm:py-3 transition-all duration-300 hover:bg-white/10 hover:border-teal-400/30 text-sm sm:text-base; }
+  .input-glass { @apply bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-teal-400/60 focus:bg-white/10 transition-all w-full text-base; }
+  .text-teal { @apply bg-teal-gradient bg-clip-text text-transparent; }
+  .shimmer { background: linear-gradient(90deg, transparent, rgba(45,212,191,0.15), transparent); background-size: 200% 100%; animation: shimmer 2.5s linear infinite; }
+  .stat-card { @apply glass-card p-5; }
+  .nav-item { @apply px-4 py-2 rounded-lg text-sm transition-all text-white/70 hover:bg-white/5 hover:text-white; }
+  .nav-item-active { @apply bg-teal-400/10 text-teal-400 border border-teal-400/30; }
+}
+
+/* Touch target size for mobile (44px minimum iOS HIG) */
+button, a, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(45, 212, 191, 0.3); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(45, 212, 191, 0.5); }
+
+.arabic-num { font-feature-settings: "tnum"; }
+.badge-success { @apply bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded text-xs; }
+.badge-warning { @apply bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded text-xs; }
+.badge-danger { @apply bg-rose-500/20 text-rose-400 px-2 py-0.5 rounded text-xs; }
+.badge-info { @apply bg-teal-500/20 text-teal-400 px-2 py-0.5 rounded text-xs; }
+
+/* Animations */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes slideUp {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0); }
+}
+@keyframes slideDown {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(0); }
+}
+@keyframes scaleIn {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+.animate-slide-up { animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.animate-slide-down { animation: slideDown 0.3s ease-out forwards; }
+.animate-scale-in { animation: scaleIn 0.2s ease-out forwards; }
+
+/* Print styles */
+@media print {
+  .no-print, nav, button { display: none !important; }
+  body { background: white; color: black; }
+}
+
+/* RTL/LTR utilities */
+html[dir="rtl"] .ltr-only { display: none; }
+html[dir="ltr"] .rtl-only { display: none; }
+
+/* Selection */
+::selection {
+  background-color: rgba(45, 212, 191, 0.3);
+  color: white;
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid rgba(45, 212, 191, 0.6);
+  outline-offset: 2px;
+}
